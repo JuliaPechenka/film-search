@@ -1,0 +1,92 @@
+body {
+    font-family: 'Montserrat', sans-serif;
+    margin: 0;
+    background: url(https://static.pexels.com/photos/427898/pexels-photo-427898.jpeg), rgba(0,0,0,0.5);
+    background-attachment: fixed;
+    background-size: cover;
+    color: white;
+    /*font-family: 'Dosis', sans-serif;*/
+    /*font-family: 'Lobster', cursive;*/
+    /*font-family: 'Pacifico', cursive;*/
+    /*font-family: 'Acme', sans-serif;*/
+    /*font-family: 'Dancing Script', cursive;*/
+}
+html, body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    width: 100%;
+}
+:active, :focus {
+    outline: 0;
+}
+
+div#app {
+    height: 100%;
+    width: 100%;
+    background: rgba(0,0,0,0.5);
+    background-attachment: fixed;
+    /*background: rgba(225,225,225,0.7);*/
+}
+
+ul {
+    list-style-type: none;
+    margin: 0;
+}
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+ul.types {
+    display: flex;
+    padding: 20px 0;
+}
+
+.types li {
+    width: 25%;
+}
+
+.films {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+
+.films .film {
+    width: calc(100%/3);
+    padding-top: 30px;
+}
+
+.films .film img {
+    width: 150px;
+    float: left;
+    padding: 0 20px 20px 0;
+    display: inline-block;
+}
+
+.films .film .description {
+    padding-right: 20px;
+    display: inline-block;
+    width: 200px;
+}
+
+.films .film .description .title {
+    font-family: 'Pacifico', cursive;
+    font-size: 18px;
+    line-height: 19px;
+    letter-spacing: 2px;
+    padding-bottom: 10px;
+}
+
+.films .film .description .overview {
+    font-family: 'Dosis', sans-serif;
+}
+
+.rating {
+    font-size: 28px;
+    width: 130px;
+    background: -webkit-linear-gradient(left, #eee, #eee 80%, #333 80%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
