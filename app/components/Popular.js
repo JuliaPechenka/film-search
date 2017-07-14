@@ -4,16 +4,30 @@ import api from '../utils/api';
 const Types = props => {
     var types = ['Top Rated', 'Popular', 'Latest', 'Upcoming'];
     return (
-        <ul className="types">
-            {types.map(type => {
-                return (
-                    <li key={type}>{type}</li>
-                )
-            })}
-        </ul>
+        <div className="types-row">
+            <ul className="types">
+                {types.map(type => {
+                    return (
+                        <li
+                            className={type === props.selectedType ? 'active' : ''}
+                            key={type}
+                            onClick={props.onSelect.bind(null,type)}>
+                            {type}
+                        </li>
+                    )
+                })}
+
+            </ul>
+            <div className={"animated-border " + (props.selectedType === 'Top Rated' ? 'trans-1' : (props.selectedType === 'Popular' ? 'trans-2' : (props.selectedType === 'Latest' ? 'trans-3' : 'trans-4')))}></div>
+        </div>
     )
 };
 
+const styles = {
+    rating: {
+        backgroundImage: "linear-gradient(left, #eee, #eee 80%, #333 80%)"
+    }
+}
 const Films = props => {
     return (
         <div className="films">
@@ -23,9 +37,8 @@ const Films = props => {
                         <img src={'http://image.tmdb.org/t/p/w185/' + film.poster_path}/>
                         <div className="description">
                             <div className="title">{film.title}</div>
-                            <div className="rating"><span>&#9733;</span><span>&#9733;</span><span>&#9733;</span><span>&#9733;</span><span>&#9733;</span></div>
-                            <div>{film.vote_average}({film.vote_count})</div>
-                            <div className="overview">{film.overview}</div>
+                            <div className="overview">{film.overview.substring(0, 100) + '...'}</div>
+                            <div className="rating"><span className="star">&#9733;&nbsp;</span>{film.vote_average}</div>
                         </div>
                     </div>
                 )
@@ -59,6 +72,27 @@ class Popular extends React.Component {
                         films: films
                     })
                 }.bind(this));
+        } else if (type === 'Popular') {
+            api.getPopularFilms()
+                .then(function(films){
+                    this.setState({
+                        films: films
+                    })
+                }.bind(this));
+        } else if (type === 'Latest') {
+            api.getLatestFilms()
+                .then(function(films){
+                    this.setState({
+                        films: films
+                    })
+                }.bind(this));
+        } else if (type === 'Upcoming') {
+            api.getUpcomingFilms()
+                .then(function(films){
+                    this.setState({
+                        films: films
+                    })
+                }.bind(this));
         }
     }
 
@@ -71,7 +105,7 @@ class Popular extends React.Component {
             <div>
                 <Types selectedType={this.state.selectedType} onSelect={this.getFilms}/>
                 {!this.state.films
-                    ? <div>Loading</div>
+                    ? <div>While loading films was a problem on a server side</div>
                     : <Films films={this.state.films}/>}
             </div>
         )

@@ -11,8 +11,8 @@ const App = props => {
             <div className="container">
                 <Nav />
                 <Switch>
-                    <Route exact path='/' component={Home} />
-                    <Route path='/popular' component={Popular} />
+                    <Route exact path='/home' component={Home} />
+                    <Route path='/' component={Popular} />
                 </Switch>
             </div>
         </Router>
