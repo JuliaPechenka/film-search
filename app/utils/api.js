@@ -17,8 +17,8 @@ module.exports = {
                 return response.data.results;
             })
     },
-    getLatestFilms: function() {
-        var encodedURI = window.encodeURI('https://api.themoviedb.org/3/movie/latest?api_key=36262ea7bb5555e17859faf1c5c99899');
+    getNowPlayingFilms: function() {
+        var encodedURI = window.encodeURI('https://api.themoviedb.org/3/movie/now_playing?api_key=36262ea7bb5555e17859faf1c5c99899&language=en-US');
 
         return axios.get(encodedURI)
             .then(function(response){
@@ -32,5 +32,13 @@ module.exports = {
             .then(function(response){
                 return response.data.results;
             })
-    }
+    },
+    getFilmDetails: function(id) {
+        var encodedURI = window.encodeURI('https://api.themoviedb.org/3/movie/' + id +'?api_key=36262ea7bb5555e17859faf1c5c99899');
+
+        return axios.get(encodedURI)
+            .then(function(response){
+                return response.data;
+            })
+    },
 };

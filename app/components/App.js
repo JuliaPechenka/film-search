@@ -2,8 +2,8 @@ import React from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
 import Nav from './Nav';
-import Home from './Home';
 import Popular from './Popular';
+import FilmDetails from './FilmDetails';
 
 const App = props => {
     return (
@@ -11,8 +11,8 @@ const App = props => {
             <div className="container">
                 <Nav />
                 <Switch>
-                    <Route exact path='/home' component={Home} />
-                    <Route path='/' component={Popular} />
+                    <Route exact path='/' component={Popular} />
+                    <Route path='/film/:id' component={FilmDetails} />
                 </Switch>
             </div>
         </Router>

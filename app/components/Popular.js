@@ -1,8 +1,10 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
+
 import api from '../utils/api';
 
 const Types = props => {
-    var types = ['Top Rated', 'Popular', 'Latest', 'Upcoming'];
+    var types = ['Top Rated', 'Popular', 'Now Playing', 'Upcoming'];
     return (
         <div className="types-row">
             <ul className="types">
@@ -18,29 +20,25 @@ const Types = props => {
                 })}
 
             </ul>
-            <div className={"animated-border " + (props.selectedType === 'Top Rated' ? 'trans-1' : (props.selectedType === 'Popular' ? 'trans-2' : (props.selectedType === 'Latest' ? 'trans-3' : 'trans-4')))}></div>
         </div>
     )
 };
 
-const styles = {
-    rating: {
-        backgroundImage: "linear-gradient(left, #eee, #eee 80%, #333 80%)"
-    }
-}
 const Films = props => {
     return (
         <div className="films">
-            {props.films.map(film => {
+            {props.films && props.films.map(film => {
                 return (
-                    <div className="film" key={film.id}>
-                        <img src={'http://image.tmdb.org/t/p/w185/' + film.poster_path}/>
+                    <Link className="film" to={'/film/' + film.id} key={film.id}>
+                        <div className="img-with-rating">
+                            <img src={'http://image.tmdb.org/t/p/w185/' + film.poster_path}/>
+                            <div className="rating">{film.vote_average}</div>
+                        </div>
                         <div className="description">
                             <div className="title">{film.title}</div>
-                            <div className="overview">{film.overview.substring(0, 100) + '...'}</div>
-                            <div className="rating"><span className="star">&#9733;&nbsp;</span>{film.vote_average}</div>
+                            <div className="release">Release date: {film.release_date}</div>
                         </div>
-                    </div>
+                    </Link>
                 )
             })}
         </div>
@@ -79,8 +77,8 @@ class Popular extends React.Component {
                         films: films
                     })
                 }.bind(this));
-        } else if (type === 'Latest') {
-            api.getLatestFilms()
+        } else if (type === 'Now Playing') {
+            api.getNowPlayingFilms()
                 .then(function(films){
                     this.setState({
                         films: films
@@ -105,7 +103,7 @@ class Popular extends React.Component {
             <div>
                 <Types selectedType={this.state.selectedType} onSelect={this.getFilms}/>
                 {!this.state.films
-                    ? <div>While loading films was a problem on a server side</div>
+                    ? <div className="loading-message">Loading...</div>
                     : <Films films={this.state.films}/>}
             </div>
         )
