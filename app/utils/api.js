@@ -14,7 +14,6 @@ function getSimilarFilms(id) {
 
 module.exports = {
     getFilms: function(type) {
-        console.log(type);
         var type = type.replace(/\s+/g, '_');
         var encodedURI = window.encodeURI('https://api.themoviedb.org/3/movie/' + type + '?api_key=36262ea7bb5555e17859faf1c5c99899');
 
@@ -40,5 +39,23 @@ module.exports = {
                 similarFilms: similarFilms.data.results
             }
         })
-    }
+    },
+
+    getGenres: function() {
+        var encodedURI = window.encodeURI('https://api.themoviedb.org/3/genre/movie/list?api_key=36262ea7bb5555e17859faf1c5c99899');
+
+        return axios.get(encodedURI)
+            .then(function(response){
+                return response.data.genres;
+            })
+    },
+
+    getFilmsByGenre: function(genreId) {
+        var encodedURI = window.encodeURI('https://api.themoviedb.org/3/genre/'+ genreId + '/movies?api_key=36262ea7bb5555e17859faf1c5c99899');
+
+        return axios.get(encodedURI)
+            .then(function(response){
+                return response.data.results;
+            })
+    },
 };

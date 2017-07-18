@@ -1,5 +1,4 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import { Films } from './Popular';
 
 import api from '../utils/api';
@@ -56,7 +55,6 @@ class FilmDetails extends React.Component {
         else
             return (
                 <div className="film-details-view">
-                    <Link className="arrow-back" to={'/'} alt="df">&#8630;</Link>
                     <div className="decorated-title">
                         <div className="english-title">{this.state.film.title}</div>
                         <div className="original-title">{this.state.film.original_title}</div>
