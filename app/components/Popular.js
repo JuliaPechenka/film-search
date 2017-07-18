@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import api from '../utils/api';
 
 const Types = props => {
-    var types = ['Top Rated', 'Popular', 'Now Playing', 'Upcoming'];
+    var types = ['top rated', 'popular', 'now playing', 'upcoming'];
     return (
         <div className="types-row">
             <ul className="types">
@@ -50,7 +50,7 @@ class Popular extends React.Component {
         super(props);
 
         this.state = {
-            selectedType: 'Top Rated',
+            selectedType: 'top rated',
             films: null
         };
 
@@ -63,35 +63,12 @@ class Popular extends React.Component {
             films: null
         });
 
-        if (type === 'Top Rated') {
-            api.getTopRatedFilms()
-                .then(function(films){
-                    this.setState({
-                        films: films
-                    })
-                }.bind(this));
-        } else if (type === 'Popular') {
-            api.getPopularFilms()
-                .then(function(films){
-                    this.setState({
-                        films: films
-                    })
-                }.bind(this));
-        } else if (type === 'Now Playing') {
-            api.getNowPlayingFilms()
-                .then(function(films){
-                    this.setState({
-                        films: films
-                    })
-                }.bind(this));
-        } else if (type === 'Upcoming') {
-            api.getUpcomingFilms()
-                .then(function(films){
-                    this.setState({
-                        films: films
-                    })
-                }.bind(this));
-        }
+        api.getFilms(type)
+            .then(function(films){
+                this.setState({
+                    films: films
+                })
+            }.bind(this));
     }
 
     componentDidMount() {
@@ -110,4 +87,4 @@ class Popular extends React.Component {
     }
 }
 
-module.exports = Popular;
+module.exports = { Popular, Films };

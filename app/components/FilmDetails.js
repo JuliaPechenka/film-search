@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { Films } from './Popular';
 
 import api from '../utils/api';
 
@@ -8,23 +9,43 @@ class FilmDetails extends React.Component {
         super(props);
 
         this.state = {
-            film: {}
+            film: {},
+            filmReviews: [],
+            similarFilms: []
         };
+
+        this.showComment = this.showComment.bind(this);
     }
 
-    getFilmDetails(id) {
-        api.getFilmDetails(id)
-            .then(function(film){
-                console.log(film);
+    getFilmData(filmId) {
+        window.scrollTo(0,0);
+
+        api.getFilmData(filmId)
+            .then(function(filmData){
                 this.setState({
-                    film: film
+                    film: filmData.film,
+                    filmReviews: filmData.filmReviews,
+                    similarFilms: filmData.similarFilms
                 })
             }.bind(this));
     }
 
     componentDidMount() {
         const filmId = this.props.location.pathname.split('/')[2];
-        this.getFilmDetails(filmId);
+        this.getFilmData(filmId);
+    }
+
+    componentWillReceiveProps(newProps) {
+        const filmId = newProps.location.pathname.split('/')[2];
+        this.getFilmData(filmId);
+    }
+
+    showComment(review) {
+        review.expanded = !review.expanded;
+
+        this.setState({
+            review: review
+        });
     }
 
     render () {
@@ -36,7 +57,7 @@ class FilmDetails extends React.Component {
             return (
                 <div className="film-details-view">
                     <Link className="arrow-back" to={'/'} alt="df">&#8630;</Link>
-                    <div className="title">
+                    <div className="decorated-title">
                         <div className="english-title">{this.state.film.title}</div>
                         <div className="original-title">{this.state.film.original_title}</div>
                     </div>
@@ -75,6 +96,29 @@ class FilmDetails extends React.Component {
                         </div>
                     </div>
                     <div className="overview">{this.state.film.overview}</div>
+                    <div className="section">
+                        <div className="section-title">Reviews</div>
+                        {this.state.filmReviews.map(review => {
+                            return (
+                                <div className="review" key={review.id}>
+                                    <div className="author"><span className="pencil-icon">&#10000;</span>{review.author}</div>
+                                    <div className="content">
+                                        {!review.expanded && review.content.length > 300 ? review.content.substring(0, 300) + '... ' : review.content}
+                                        {!review.expanded && review.content.length > 300 ? <span className="read-more-button" onClick={this.showComment.bind(null, review)}>Read more</span> : ''}
+                                    </div>
+                                </div>
+                            )
+                        })}
+                        {this.state.filmReviews.length === 0 && <div>There are no reviews to this film.</div>}
+                    </div>
+
+                    <div className="section">
+                        <div className="section-title" style={{width: 210}}>Similar films</div>
+                        <div>If you like this movie do not miss also:</div>
+                        <div className="similar-films">
+                            {this.state.similarFilms.length !== 0 ? <Films films={this.state.similarFilms.splice(0,6)}/> : <div>There are no similar films.</div>}
+                        </div>
+                    </div>
                 </div>
             )
     }
