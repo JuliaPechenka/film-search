@@ -65,10 +65,14 @@ class FilmDetails extends React.Component {
                             <div className="items">
                                 <div className="item"><span className="label">Duration:&nbsp;</span>{Math.floor(this.state.film.runtime/60)}h {this.state.film.runtime - 60*Math.floor(this.state.film.runtime/60)}min</div>
                                 {this.state.film.genres &&
-                                <div className="item"><span className="label">Genres:&nbsp;</span>{this.state.film.genres.map(genre => {
-                                    return (
-                                        <span key={genre.id}>{genre.name + (genre !== this.state.film.genres[this.state.film.genres.length-1] ? ',\u00A0': '')}</span>
-                                    )})}
+                                <div className="item"><span className="label">Genres:&nbsp;</span>
+                                    <div className="with-grid">
+                                        {this.state.film.genres.map(genre => {
+                                            return (
+                                                <span key={genre.id}>{genre.name + (genre !== this.state.film.genres[this.state.film.genres.length-1] ? ',\u00A0': '')}</span>
+                                            )
+                                        })}
+                                    </div>
                                 </div>
                                 }
                                 <div className="item"><span className="label">Release date:&nbsp;</span>{this.state.film.release_date}</div>

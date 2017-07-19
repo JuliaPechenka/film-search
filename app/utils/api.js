@@ -58,4 +58,13 @@ module.exports = {
                 return response.data.results;
             })
     },
+
+    searchFilm: function(query) {
+        var encodedURI = window.encodeURI('https://api.themoviedb.org/3/search/movie?api_key=36262ea7bb5555e17859faf1c5c99899&query=' + query);
+
+        return axios.get(encodedURI)
+            .then(function(response){
+                return response.data.results;
+            })
+    },
 };

@@ -37,7 +37,6 @@ class Genres extends React.Component {
     componentDidMount() {
         api.getGenres()
             .then(function(genres){
-                console.log(genres);
                 this.setState({
                     genres: genres
                 }, function(){
@@ -61,7 +60,7 @@ class Genres extends React.Component {
 
     render () {
         return (
-            <div className="genres-view">
+            <div className="paddingTop">
                 <GenresList genres={this.state.genres} selectedGenreId={this.state.selectedGenreId} onSelect={this.getFilmsByGenre}/>
 
                 {!this.state.films

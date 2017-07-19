@@ -31,7 +31,7 @@ const Films = props => {
                 return (
                     <Link className="film" to={'/film/' + film.id} key={film.id}>
                         <div className="img-with-rating">
-                            <img src={'http://image.tmdb.org/t/p/w185/' + film.poster_path}/>
+                            {film.poster_path ? <img src={'http://image.tmdb.org/t/p/w185/' + film.poster_path}/> : <div style={{paddingBottom: 50}}></div>}
                             <div className="rating">{film.vote_average}</div>
                         </div>
                         <div className="description">
@@ -51,10 +51,13 @@ class Popular extends React.Component {
 
         this.state = {
             selectedType: 'top rated',
-            films: null
+            films: null,
+            searchQuery: '',
+            searchFilms: null
         };
 
         this.getFilms = this.getFilms.bind(this);
+        this.searchFilms = this.searchFilms.bind(this);
     }
 
     getFilms(type) {
@@ -69,6 +72,19 @@ class Popular extends React.Component {
                     films: films
                 })
             }.bind(this));
+    }
+
+    searchFilms(event) {
+        this.setState({
+            searchQuery: event.target.value
+        }, function() {
+            api.searchFilm(this.state.searchQuery)
+                .then(function(films) {
+                    this.setState({
+                        searchFilms: films
+                    })
+                }.bind(this));
+        });
     }
 
     componentDidMount() {
