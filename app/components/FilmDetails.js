@@ -78,15 +78,22 @@ class FilmDetails extends React.Component {
                                 <div className="item"><span className="label">Release date:&nbsp;</span>{this.state.film.release_date}</div>
                                 <div className="item"><span className="label">Language:&nbsp;</span>{this.state.film.original_language}</div>
                                 {this.state.film.production_countries &&
-                                <div className="item"><span className="label">Country:&nbsp;</span>{this.state.film.production_countries.map(country => {
-                                    return (
-                                        <span key={country.name}>{country.name + (country !== this.state.film.production_countries[this.state.film.production_countries.length-1] ? ',\u00A0': '')}</span>
-                                    )})}
+                                <div className="item"><span className="label">Country:&nbsp;</span>
+                                    <div className="with-grid">
+                                        {this.state.film.production_countries.map(country => {
+                                            return (
+                                                <span key={country.name}>{country.name + (country !== this.state.film.production_countries[this.state.film.production_countries.length-1] ? ',\u00A0': '')}</span>
+                                            )
+                                        })}
+                                    </div>
                                 </div>
                                 }
                                 <div className="item"><span className="label">Budget/Revenue:&nbsp;</span>
-                                    {this.state.film.budget && this.state.film.budget !== 0 ? ('$ ' + this.state.film.budget.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1,')) : ' ?'} /
-                                    {this.state.film.revenue && this.state.film.revenue !== 0 ? (' $ ' + this.state.film.revenue.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1,')) : ' ?'}</div>
+                                    <div className="with-grid">
+                                        <span>{this.state.film.budget && this.state.film.budget !== 0 ? ('$ ' + this.state.film.budget.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1,')) : ' ?'} /</span>
+                                        <span>{this.state.film.revenue && this.state.film.revenue !== 0 ? (' $ ' + this.state.film.revenue.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1,')) : ' ?'}</span>
+                                    </div>
+                                </div>
                             </div>
 
                             <div className="rating">

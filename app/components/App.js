@@ -7,6 +7,18 @@ import FilmDetails from './FilmDetails';
 import Genres from './Genres';
 import Search from './Search';
 
+const NotFound = props => {
+    return (
+        <div className="not-found">
+            <img src="http://alittlebit.ru/upload/iblock/c75/db1ca89821f8112b986ae36733e7560a.jpeg"/>
+            <div className="">
+                <div className="title">404 ERROR</div>
+                <div className="description">The page you looking for cannot be found</div>
+            </div>
+        </div>
+    )
+};
+
 const App = props => {
     return (
         <Router>
@@ -19,6 +31,7 @@ const App = props => {
                         <Route path='/film/:id' component={FilmDetails} />
                         <Route path='/genres' component={Genres} />
                         <Route path='/search' component={Search} />
+                        <Route path='*' component={NotFound} />
                     </Switch>
                 </div>
             </div>

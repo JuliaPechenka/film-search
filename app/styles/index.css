@@ -114,6 +114,30 @@ ul {
     text-shadow: 1px 1px 1px #a15a57;
 }
 
+.not-found {
+    padding: 70px 0 50px;
+}
+.not-found img {
+    width: 35%;
+    height: auto;
+    float: left;
+    margin-right: 50px;
+    border-top: 3px solid #f59c98;
+    border-bottom: 3px solid #f59c98;
+}
+.not-found .title {
+    font-family: 'Oswald', sans-serif;
+    font-size: 75px;
+    font-weight: 200;
+    text-shadow: 2px 2px 3px #916c6b;
+    letter-spacing: 15px;
+    padding-bottom: 20px;
+}
+.not-found .description {
+
+    font-size: 35px;
+}
+
 /* HOME */
 .types-row {
     margin: 50px 0 40px;
@@ -409,7 +433,25 @@ ul.types {
 
 .similar-films {
     padding-top: 30px;
+    overflow: hidden;
+    transition-duration: 0.5s;
 }
+.similar-films .films {
+    flex-wrap: inherit;
+    justify-content: flex-start;
+}
+.similar-films .films .film {
+    display: table;
+    margin: 0 20px 50px 0;
+}
+.similar-films:before, .similar-films:after {
+    position: absolute;
+    top: 0;
+}
+.similar-films:before {
+    content: '';
+}
+.similar-films:after {}
 
 .paddingTop {
     padding-top: 70px;
@@ -518,6 +560,10 @@ ul.genres-list li .check-mark {
 }
 @media (max-width: 630px) {
     .container { max-width: inherit; }
+    .not-found img {
+        width: 100%;
+        float: none;
+    }
     .films .film { width: calc(100%/2 - 20px); }
     .films .film:nth-child(2n-2) {
         margin: 0 0 25px 0;
@@ -530,6 +576,9 @@ ul.genres-list li .check-mark {
     }
     .film-details-view .details-row {
         display: block;
+    }
+    .film-details-view .details-row .details {
+        padding-top: 20px;
     }
 }
 @media (max-width: 350px) {
